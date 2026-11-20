@@ -60,7 +60,7 @@ input[type=text]{font:16px Inter,sans-serif;min-height:44px;padding:0 12px;borde
 .sh h2{font-size:22px}
 .sb{display:grid;grid-template-columns:minmax(0,1fr) 330px;overflow:auto;flex:1}
 .stage{background:var(--card);padding:18px;display:grid;place-items:start center;min-height:300px}
-#edcv{width:100%;height:auto;background:#fff;box-shadow:0 8px 24px -8px rgba(0,0,0,.35);cursor:crosshair;touch-action:manipulation}
+#edcv{width:auto;height:auto;max-width:100%;max-height:min(70vh,900px);background:#fff;box-shadow:0 8px 24px -8px rgba(0,0,0,.35);cursor:crosshair;touch-action:manipulation}
 .panel{padding:18px;display:grid;gap:16px;align-content:start;border-left:1px solid var(--line)}
 .seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .seg button{font:600 15px Inter,sans-serif;min-height:44px;border:0;background:var(--bg);color:var(--ink);cursor:pointer}
@@ -79,7 +79,22 @@ input[type=text]{font:16px Inter,sans-serif;min-height:44px;padding:0 12px;borde
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:30;max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media(max-width:760px){.sb{grid-template-columns:minmax(0,1fr)}.panel{border-left:0;border-top:1px solid var(--line)}.modal{padding:0}.sheet{border-radius:0;height:100%}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.thumb{height:160px}.thumb canvas{max-height:160px}.save .btn{flex:1 1 auto;justify-content:center}}
+@media(max-width:600px){
+  .band{padding:18px 14px}
+  .top{padding-bottom:22px}.top h1{font-size:28px}.top p{font-size:15px}
+  .drop{padding:14px;gap:8px}.drop .btn{width:100%;justify-content:center}.drop small{font-size:13px;text-align:center;width:100%}
+  .note{font-size:14px;margin-top:10px}
+  .bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;overflow:visible;padding:8px 0;margin:10px 0 14px}
+  .bar .btn{flex-direction:column;justify-content:center;gap:3px;padding:6px 2px;min-height:54px;font-size:12px;border-radius:9px;white-space:normal;text-align:center;line-height:1.15}
+  .bar .btn svg{width:18px;height:18px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{padding:8px 8px 6px}.thumb{height:150px}.thumb canvas{max-height:150px}
+  .save{margin-top:18px;padding-top:16px}.save label.f{max-width:none;flex-basis:100%}.save .btn{flex:1 1 100%;justify-content:center}
+  .priv{font-size:13px}
+  .sh{padding:10px 14px}.sh h2{font-size:19px}
+  .stage{padding:10px;min-height:0}#edcv{max-height:56vh}
+  .panel{padding:14px;gap:12px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -339,7 +354,7 @@ function main(){
     const w = Math.min($('#edfig').clientWidth - 36, 760);
     ed.base = document.createElement('canvas');
     ed.vp = await paint(ed.base, {...p, ov:[]}, Math.max(w, 240));
-    edcv.width = ed.base.width; edcv.height = ed.base.height; edcv.style.maxWidth = (ed.base.width/dpr)+'px';
+    edcv.width = ed.base.width; edcv.height = ed.base.height;
     compose();
   }
   function compose(){
